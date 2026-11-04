@@ -50,14 +50,18 @@ final class UiHarness implements AutoCloseable {
     final UiContext ctx;
 
     UiHarness(Path dir) {
+        this(dir, ClockPort.SYSTEM, new LengthStrength());
+    }
+
+    UiHarness(Path dir, ClockPort clock, PasswordStrengthPort strength) {
         db = SqliteDatabase.open(dir.resolve("vault.db"));
         SqliteRepositories repos = new SqliteRepositories(db);
         SecureRandomSource random = new SecureRandomSource();
         services = VaultServices.create(new VaultServices.Ports(new Argon2idKdf(), new AesGcmAead(random), random,
-                new LengthStrength(), ClockPort.SYSTEM, db, repos.vaultMeta(), repos.keyWraps(),
+                strength, clock, db, repos.vaultMeta(), repos.keyWraps(),
                 repos.securityQuestions(), repos.entries(), repos.passwordHistory(), repos.lockouts(),
                 repos.activityLog(), repos.settings()), KdfProfile.FOR_TESTS);
-        ctx = new UiContext(services, new Worker(), new ClipboardService(FAST.clipboardClear()), ClockPort.SYSTEM,
+        ctx = new UiContext(services, new Worker(), new ClipboardService(FAST.clipboardClear()), clock,
                 SessionLockSource.NONE, FAST);
     }
 

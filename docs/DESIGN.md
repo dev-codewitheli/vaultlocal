@@ -670,12 +670,13 @@ flowchart TD
 
 Outcomes of the open items, and the places where the build refines or departs from the text above.
 
-**Needs your confirmation (a departure from what was agreed)**
-- **Crash output (§4.3).** I replaced "`-XX:ErrorFile` pointed at the log dir" with
+**Departure from what was agreed, approved 2026-11-05**
+- **Crash output (§4.3).** "`-XX:ErrorFile` pointed at the log dir" was replaced with
   `-XX:-CreateCoredumpOnCrash -XX:+SuppressFatalErrorMessage`. An `hs_err` file includes memory
   near the crashing registers, and a Windows minidump includes process memory; either could
-  hold key material. The trade-off is that a JVM crash leaves no diagnostics. Say if you'd
-  rather keep the `hs_err` file.
+  hold key material. The trade-off is that a JVM crash leaves no diagnostics.
+- **Install location (§9).** The `.msi` installs to `%LOCALAPPDATA%\VaultLocal App`, so program
+  files never share a folder with the vault data (`%LOCALAPPDATA%\VaultLocal`, unchanged).
 
 **Outcomes of the decisions**
 - **Q8:** zxcvbn4j was rejected (it builds `String`s; see §2.4). `LocalStrengthEstimator` (in

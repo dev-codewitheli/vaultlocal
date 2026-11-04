@@ -47,7 +47,7 @@ public final class ReportScreen implements Navigator.Screen {
         ctx.worker().run(() -> ctx.services().reports().securityReport(staleDays), report -> {
             body.getChildren().setAll(summary(report),
                     section("Weak passwords", "Easy to guess. Replace them with generated passwords.", report.weak()));
-            VBox reused = new VBox(8, Ui.heading("Reused passwords (" + report.reused().size() + " groups)"),
+            VBox reused = new VBox(8, Ui.heading("Reused passwords (" + plural(report.reused().size(), "group") + ")"),
                     Ui.muted("The same password on several accounts: one leak exposes all of them."));
             if (report.reused().isEmpty()) {
                 reused.getChildren().add(Ui.muted("None."));
@@ -66,10 +66,14 @@ public final class ReportScreen implements Navigator.Screen {
             l.setId("reportSummary");
             return l;
         }
-        Label l = Ui.callout(r.weak().size() + " weak · " + r.reused().size() + " reused groups · "
+        Label l = Ui.callout(r.weak().size() + " weak · " + plural(r.reused().size(), "reused group") + " · "
                 + r.stale().size() + " stale", "warning");
         l.setId("reportSummary");
         return l;
+    }
+
+    private static String plural(int n, String noun) {
+        return n + " " + noun + (n == 1 ? "" : "s");
     }
 
     private static VBox section(String title, String explanation, List<Entry> entries) {

@@ -35,7 +35,7 @@ tasks.test {
 }
 
 tasks.test {
-    useJUnitPlatform { excludeTags("windows-spike") }
+    useJUnitPlatform { excludeTags("windows-spike", "screenshots") }
 }
 
 // Decision Q9 spike: real Windows clipboard (no Monocle). Run manually on a Windows desktop.
@@ -46,5 +46,20 @@ val windowsClipboardSpike by tasks.registering(Test::class) {
     classpath = sourceSets["test"].runtimeClasspath
     useJUnitPlatform { includeTags("windows-spike") }
     testLogging.showStandardStreams = true
+    outputs.upToDateWhen { false }
+}
+
+// README / portfolio screenshots with made-up demo data, rendered headless into docs/screenshots.
+val screenshots by tasks.registering(Test::class) {
+    description = "Renders showcase screenshots into docs/screenshots."
+    group = "documentation"
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
+    useJUnitPlatform { includeTags("screenshots") }
+    systemProperty("screenshots.dir", rootProject.file("docs/screenshots").path)
+    for (p in listOf("testfx.robot" to "glass", "testfx.headless" to "true", "glass.platform" to "Monocle",
+            "monocle.platform" to "Headless", "prism.order" to "sw", "java.awt.headless" to "true")) {
+        systemProperty(p.first, p.second)
+    }
     outputs.upToDateWhen { false }
 }
