@@ -1,0 +1,27 @@
+# Every version is pinned. VaultLocal itself makes no network calls at runtime;
+# these are only downloaded by Gradle at build time.
+[versions]
+javafx = "21.0.6"
+sqlite = "3.47.1.0"
+bouncycastle = "1.79"
+jna = "5.15.0"
+junit = "5.11.3"
+assertj = "3.26.3"
+testfx = "4.0.18"
+monocle = "21.0.2"
+archunit = "1.3.0"
+hamcrest = "2.2"
+
+[libraries]
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
+bcprov = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
+jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+testfx-core = { module = "org.testfx:testfx-core", version.ref = "testfx" }
+testfx-junit5 = { module = "org.testfx:testfx-junit5", version.ref = "testfx" }
+monocle = { module = "org.testfx:openjfx-monocle", version.ref = "monocle" }
+archunit = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit" }
+hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }

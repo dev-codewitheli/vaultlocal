@@ -1,0 +1,10 @@
+.gradle/
+build/
+out/
+*.iml
+.idea/
+.vscode/
+bin/
+*.db
+*.db-journal
+*.vlbackup

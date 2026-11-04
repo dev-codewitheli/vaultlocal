@@ -1,0 +1,26 @@
+/* VaultLocal light palette. Bundled locally: no web fonts, no remote assets. */
+.root {
+    -vl-bg: #f4f6f9;
+    -vl-surface: #ffffff;
+    -vl-text: #1b2230;
+    -vl-muted: #5d6878;
+    -vl-border: #d5dbe4;
+    -vl-accent: #3451d1;
+    -vl-accent-hover: #2a43b0;
+    -vl-accent-text: #ffffff;
+    -vl-danger: #c0392b;
+    -vl-danger-bg: #fdecea;
+    -vl-warn: #9a5b00;
+    -vl-warn-bg: #fff4e0;
+    -vl-ok: #1e7b3c;
+    -vl-ok-bg: #e7f6ec;
+    -vl-chip-bg: #eef1f6;
+
+    -fx-base: #eef1f5;
+    -fx-background: -vl-bg;
+    -fx-control-inner-background: -vl-surface;
+    -fx-accent: -vl-accent;
+    -fx-focus-color: -vl-accent;
+    -fx-faint-focus-color: #3451d122;
+    -fx-text-base-color: -vl-text;
+}

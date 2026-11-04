@@ -1,0 +1,26 @@
+/* VaultLocal dark palette. */
+.root {
+    -vl-bg: #16191f;
+    -vl-surface: #1f232b;
+    -vl-text: #e6e9ef;
+    -vl-muted: #9aa4b2;
+    -vl-border: #333946;
+    -vl-accent: #7b93ff;
+    -vl-accent-hover: #93a7ff;
+    -vl-accent-text: #0e1220;
+    -vl-danger: #ff7b6e;
+    -vl-danger-bg: #3a1f1d;
+    -vl-warn: #ffc46b;
+    -vl-warn-bg: #3a2d16;
+    -vl-ok: #6fdc8c;
+    -vl-ok-bg: #1b3324;
+    -vl-chip-bg: #2a2f39;
+
+    -fx-base: #2a2f38;
+    -fx-background: -vl-bg;
+    -fx-control-inner-background: -vl-surface;
+    -fx-accent: -vl-accent;
+    -fx-focus-color: -vl-accent;
+    -fx-faint-focus-color: #7b93ff22;
+    -fx-text-base-color: -vl-text;
+}
