@@ -1,10 +1,12 @@
 .gradle/
 build/
 out/
+!**/src/**/out/
 *.iml
 .idea/
 .vscode/
 bin/
+!**/src/**/bin/
 *.db
 *.db-journal
 *.vlbackup
