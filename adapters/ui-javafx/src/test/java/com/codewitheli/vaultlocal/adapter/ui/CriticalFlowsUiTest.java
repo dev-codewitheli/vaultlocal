@@ -212,7 +212,35 @@ class CriticalFlowsUiTest {
         screenshot(robot, "13-settings");
     }
 
+    @Test
+    void entryEditorLabelsLineUpWithTheFirstLineOfTheirFields(FxRobot robot) {
+        launch(robot, new UiHarness(dir).withVault());
+        unlock(robot);
+        robot.clickOn("#addEntry");
+        waitFor(() -> robot.lookup("#editPassword").tryQuery().isPresent());
+        javafx.scene.Parent editor = robot.lookup("#editPassword").query().getScene().getRoot();
+        screenshot(robot, "14-entry-editor-alignment");
+
+        for (String[] pair : new String[][] {{"Password", "#editPassword"}, {"Notes", "#editNotes"},
+                {"Account label", "#editLabel"}}) {
+            Label label = robot.from(editor).lookup((Node n) -> n instanceof Label l && l.getText().equals(pair[0]))
+                    .queryAs(Label.class);
+            Node field = robot.from(editor).lookup(pair[1]).query();
+            assertThat(baselineInScene(label)).as(pair[0] + " label vs its field")
+                    .isCloseTo(baselineInScene(field), org.assertj.core.data.Offset.offset(2.0));
+        }
+        // The heading style must not leak into the TitledPane header (it also has style class "title").
+        javafx.scene.text.Text generatorTitle = robot.from(editor)
+                .lookup((Node n) -> n instanceof javafx.scene.text.Text t && "Password generator".equals(t.getText()))
+                .queryAs(javafx.scene.text.Text.class);
+        assertThat(generatorTitle.getFont().getSize()).isLessThan(16);
+    }
+
     // ------------------------------------------------------------------ helpers
+
+    private static double baselineInScene(Node n) {
+        return n.localToScene(0, n.getBaselineOffset()).getY();
+    }
 
     private void unlock(FxRobot robot) {
         type(robot, "#unlockKey", UiHarness.MASTER);

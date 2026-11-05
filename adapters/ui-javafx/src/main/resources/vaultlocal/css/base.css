@@ -8,7 +8,7 @@
     -fx-text-fill: -vl-text;
 }
 
-.title {
+.label.title {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
 }

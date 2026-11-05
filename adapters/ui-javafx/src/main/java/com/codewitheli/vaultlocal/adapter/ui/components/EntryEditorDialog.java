@@ -14,6 +14,8 @@ import com.codewitheli.vaultlocal.domain.error.ErrorCode;
 import com.codewitheli.vaultlocal.domain.error.VaultException;
 import com.codewitheli.vaultlocal.domain.secret.Secret;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -135,10 +137,10 @@ public final class EntryEditorDialog {
         form.addRow(r++, new Label("Platform"), platformRow);
         form.addRow(r++, new Label("Account label"), label);
         form.addRow(r++, new Label("Username / email"), username);
-        form.addRow(r++, new Label("Password"), new VBox(6, password, new HBox(12, show), meter));
+        addFirstLineAlignedRow(form, r++, new Label("Password"), new VBox(6, password, new HBox(12, show), meter));
         form.add(generator, 1, r++);
         form.addRow(r++, new Label("Website URL"), url);
-        form.addRow(r++, new Label("Notes"), notes);
+        addFirstLineAlignedRow(form, r++, new Label("Notes"), notes);
         form.add(favorite, 1, r);
         form.getColumnConstraints().addAll(new javafx.scene.layout.ColumnConstraints(120),
                 new javafx.scene.layout.ColumnConstraints(340, 400, Double.MAX_VALUE));
@@ -190,5 +192,16 @@ public final class EntryEditorDialog {
         });
         stage.show();
         label.requestFocus();
+    }
+
+    /**
+     * Adds a row whose field is taller than one line (a field with controls under it, or a text
+     * area). The label lines up with the field's first line of text instead of floating at the
+     * vertical centre of the whole block.
+     */
+    private static void addFirstLineAlignedRow(GridPane form, int row, Label label, Node field) {
+        GridPane.setValignment(label, VPos.BASELINE);
+        GridPane.setValignment(field, VPos.BASELINE);
+        form.addRow(row, label, field);
     }
 }
