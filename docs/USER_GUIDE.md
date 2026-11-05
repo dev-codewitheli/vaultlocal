@@ -8,8 +8,9 @@ also means nobody can reset your master key for you, so read **Recovery** and **
 
 ## Install
 
-1. Run `VaultLocal-0.1.0.msi`. It installs for your Windows user only, so no administrator
-   rights are needed.
+1. Run the installer (`VaultLocal-<version>.msi` from the
+   [Releases page](https://github.com/dev-codewitheli/vaultlocal/releases)). It installs for your
+   Windows user only, so no administrator rights are needed.
 2. Choose the install folder, or keep the default `%LOCALAPPDATA%\VaultLocal App`, and decide
    whether you want a desktop shortcut.
 3. Start **VaultLocal** from the Start menu.
@@ -17,6 +18,9 @@ also means nobody can reset your master key for you, so read **Recovery** and **
 **Where your data lives:** `%LOCALAPPDATA%\VaultLocal\vault.db`, kept separate from the
 program files. Uninstalling VaultLocal removes the program but **leaves your vault file in
 place**.
+
+**Updating:** VaultLocal never checks for updates itself. To update, close VaultLocal and run
+the newer installer. It replaces the old version, and your vault and settings stay as they are.
 
 > **Recommended:** turn on BitLocker (Settings → Privacy & security → Device encryption). While
 > the vault is unlocked, Windows can write parts of memory to the page file or hibernation file.
