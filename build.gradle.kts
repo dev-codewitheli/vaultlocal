@@ -3,7 +3,7 @@ subprojects {
     apply(plugin = "java-library")
 
     group = "com.codewitheli.vaultlocal"
-    version = "0.1.1"
+    version = "0.1.2"
 
     repositories { mavenCentral() }
 

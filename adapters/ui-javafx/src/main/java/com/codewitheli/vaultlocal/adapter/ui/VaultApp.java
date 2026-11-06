@@ -12,6 +12,7 @@ import java.util.Objects;
 public final class VaultApp extends Application {
 
     private static UiContext context;
+    private Navigator navigator;
     private static Runnable onExit = () -> {
     };
 
@@ -32,11 +33,15 @@ public final class VaultApp extends Application {
             // the window just keeps the default icon
         }
         Platform.setImplicitExit(true);
-        new Navigator(stage, context).start();
+        navigator = new Navigator(stage, context);
+        navigator.start();
     }
 
     @Override
     public void stop() {
+        if (navigator != null) {
+            navigator.shutDown();
+        }
         context.clipboard().clearIfOurs();
         context.services().vault().lock(false);
         context.sessionLock().close();

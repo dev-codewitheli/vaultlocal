@@ -10,3 +10,5 @@ bin/
 *.db
 *.db-journal
 *.vlbackup
+hs_err_pid*.log
+replay_pid*.log

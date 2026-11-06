@@ -33,6 +33,7 @@ public final class Navigator {
     private Scene scene;
     private AutoLock autoLock;
     private Screen current;
+    private boolean shuttingDown;
 
     /** A screen that can wipe its sensitive state when it is replaced or the vault locks. */
     public interface Screen {
@@ -118,7 +119,22 @@ public final class Navigator {
         }, t -> UiErrors.log("Lock failed", t));
     }
 
+    /**
+     * Called on the FX thread when the app is closing, before the vault is locked and the database
+     * closed: the lock that follows must not build an Unlock screen against a closed database.
+     */
+    public void shutDown() {
+        shuttingDown = true;
+        autoLock.disarm();
+        if (current != null) {
+            current.dispose();
+        }
+    }
+
     private void onLocked() {
+        if (shuttingDown) {
+            return;
+        }
         autoLock.disarm();
         ctx.clipboard().clearIfOurs();
         for (Stage d : List.copyOf(dialogs)) {

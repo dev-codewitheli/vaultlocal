@@ -236,6 +236,26 @@ class CriticalFlowsUiTest {
         assertThat(generatorTitle.getFont().getSize()).isLessThan(16);
     }
 
+    @Test
+    void lockDuringShutdownDoesNotRebuildTheUnlockScreen(FxRobot robot) {
+        harness = new UiHarness(dir).withVault();
+        Navigator[] nav = new Navigator[1];
+        robot.interact(() -> {
+            nav[0] = new Navigator(new Stage(), harness.ctx);
+            nav[0].start();
+        });
+        WaitForAsyncUtils.waitForFxEvents();
+        unlock(robot);
+        // VaultApp.stop(): shut the navigator down, then lock; the database closes right after,
+        // so the lock listener must not build an Unlock screen that reads from it.
+        robot.interact(() -> {
+            nav[0].shutDown();
+            harness.services.vault().lock(false);
+        });
+        WaitForAsyncUtils.waitForFxEvents();
+        assertThat(robot.lookup("#unlockKey").tryQuery()).isEmpty();
+    }
+
     // ------------------------------------------------------------------ helpers
 
     private static double baselineInScene(Node n) {
